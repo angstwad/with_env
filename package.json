@@ -1,0 +1,28 @@
+{
+  "name": "with_env",
+  "version": "1.0.0",
+  "main": "dist/with_env.js",
+  "bin": {
+    "with_env": "with_env.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.51.0",
+    "jsesc": "^2.5.1",
+    "yargs": "^8.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angstwad/with_env.git"
+  },
+  "engines": {
+    "node": ">=6.10"
+  },
+  "author": "Paul Durivage <pauldurivage@gmail.com>",
+  "description": "Sets up a shell environment from a JSON file in S3",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/angstwad/with_env"
+}
