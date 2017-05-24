@@ -14,7 +14,9 @@ dynamically when a container starts.
 ## Install
 
 ```
-$ npm install git+https://github.com/angstwad/with_env
+git clone https://github.com/angstwad/with_env.git
+cd with_env
+npm install
 ```
 
 ## Example
