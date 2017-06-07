@@ -38,10 +38,20 @@ if (args.dev) {
 }
 
 aws.config.setPromisesDependency(Promise);
+aws.config.credentials = new aws.EC2MetadataCredentials({
+  httpOptions: {
+    timeout: 10000
+  },
+  maxRetries: 10,
+  retryDelayOptions: {
+    base: 200
+  }
+});
 aws.config.region = args.region;
 if (args.profile !== undefined) {
   aws.config.credentials = new aws.SharedIniFileCredentials({profile: args.profile});
 }
+
 
 const s3 = new aws.S3({
   maxRetries: 10,
