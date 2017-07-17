@@ -8,7 +8,7 @@ const process = require('process');
 const args = yargs
   .options({
     'region': {
-      describe: 'AWS Region'
+      describe: 'AWS Region.  Using region implies you\'re using config file credentials and not the ECS metadata service.'
     },
     'profile': {
       describe: 'AWS Profile'
@@ -38,7 +38,7 @@ if (args.dev) {
 }
 
 aws.config.setPromisesDependency(Promise);
-aws.config.credentials = new aws.EC2MetadataCredentials({
+aws.config.credentials = new aws.ECSCredentials({
   httpOptions: {
     timeout: 10000
   },
