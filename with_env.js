@@ -22,6 +22,10 @@ const args = yargs
     'dev': {
       boolean: true,
       describe: 'Set dev mode (does not load an environment)'
+    },
+    'creds-provider': {
+      choices: ['container', 'instance'],
+      default: 'container'
     }
   })
   .boolean('dev')
@@ -31,14 +35,14 @@ const args = yargs
 if (args.dev) {
   process.exit(0);
 } else if (!(args.file && args.bucket)) {
-  console.log(args);
   yargs.showHelp();
   console.error('Error: bucket and file must be used together, or --dev specified');
   process.exit(1);
 }
 
 aws.config.setPromisesDependency(Promise);
-aws.config.credentials = new aws.ECSCredentials({
+
+const credsOpts = {
   httpOptions: {
     timeout: 10000
   },
@@ -46,12 +50,19 @@ aws.config.credentials = new aws.ECSCredentials({
   retryDelayOptions: {
     base: 200
   }
-});
+};
+
+if (args.credsProvider === 'container') {
+  aws.config.credentials = new aws.ECSCredentials(credsOpts);
+}
+else if (args.credsProvider === 'instance') {
+  aws.config.credentials = new aws.EC2MetadataCredentials(credsOpts);
+}
+
 aws.config.region = args.region;
 if (args.profile !== undefined) {
   aws.config.credentials = new aws.SharedIniFileCredentials({profile: args.profile});
 }
-
 
 const s3 = new aws.S3({
   maxRetries: 10,

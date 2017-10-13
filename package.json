@@ -6,9 +6,9 @@
     "with_env": "with_env.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.51.0",
+    "aws-sdk": "^2.133.0",
     "jsesc": "^2.5.1",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
